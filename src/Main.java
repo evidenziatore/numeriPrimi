@@ -1,5 +1,5 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String... args) {
         stampaPrimi(Long.parseLong(args[0]), 2, true);
     }
 
@@ -7,7 +7,7 @@ public class Main {
         if (primoGiro) {
             System.out.println();
             System.out.println(inserisciTrattini(true));
-            System.out.println(inserisciSpazi("Numero", TipoColonna.INIZIO) + inserisciSpazi("Divisore", TipoColonna.META) + inserisciSpazi("Esponente Divisore", TipoColonna.META) + inserisciSpazi("Risultato", TipoColonna.FINE));
+            System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
             System.out.println(inserisciTrattini(false));
         }
         if (numero > 1 && !verificaPrimo(numero, true)) {
@@ -18,7 +18,7 @@ public class Main {
                 potenzaPrimo++;
             }
             if (potenzaPrimo > 0) {
-                System.out.println(inserisciSpazi(numeroVecchio + "", TipoColonna.INIZIO) + inserisciSpazi("" + divisore, TipoColonna.META) + inserisciSpazi("" + potenzaPrimo, TipoColonna.META) + inserisciSpazi("" + numero, TipoColonna.FINE));
+                System.out.println(inserisciSpazi(numeroVecchio, divisore, potenzaPrimo, numero));
                 System.out.println(inserisciTrattini(false));
             }
             divisore++;
@@ -33,31 +33,25 @@ public class Main {
             }
         }
         if (stampa) {
-            System.out.println(inserisciSpazi(numero + "", TipoColonna.INIZIO) + inserisciSpazi(numero + "", TipoColonna.META) + inserisciSpazi("1", TipoColonna.META) + inserisciSpazi("1", TipoColonna.FINE));
+            System.out.println(inserisciSpazi(numero, numero, "1", "1"));
             System.out.println(inserisciTrattini(true));
             System.out.println();
         }
         return true;
     }
 
-    private static String inserisciSpazi(String numeroStringa, TipoColonna tipoColonna) {
+    private static String inserisciSpazi(Object... numeriStringa) {
         StringBuilder s = new StringBuilder();
-        if (tipoColonna != null) {
-            s.append("|");
+        for (Object numeroStringa : numeriStringa) {
+            s.append("| ");
+            s.append(numeroStringa);
+            long numeroSpazi = 20 - numeroStringa.toString().length();
+            for (long indice = 0; indice < numeroSpazi; indice++) {
+                s.append(" ");
+            }
         }
-        s.append(" " + numeroStringa);
-        long numeroSpazi = 20 - numeroStringa.length();
-        for (long indice = 0; indice < numeroSpazi; indice++) {
-            s.append(" ");
-        }
-        if (TipoColonna.FINE.equals(tipoColonna)) {
-            s.append("|");
-        }
+        s.append("|");
         return s.toString();
-    }
-
-    private static String inserisciSpazi(String numeroStringa) {
-        return inserisciSpazi(numeroStringa, null);
     }
 
     private static String inserisciTrattini(boolean primaUltima) {
@@ -74,11 +68,5 @@ public class Main {
             }
         }
         return s.toString();
-    }
-
-    public enum TipoColonna {
-        INIZIO,
-        META,
-        FINE
     }
 }

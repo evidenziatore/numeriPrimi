@@ -7,7 +7,7 @@ while true; do
     re='^[0-9]+$'
     if [[ $numero =~ $re ]] && (( numero > 0 )); then
         javac Main.java
-        java Main "$numero"
+        java -Xss16m Main "$numero"
     else
         echo "Input non valido. Inserisci un numero intero maggiore di zero."
         continue
