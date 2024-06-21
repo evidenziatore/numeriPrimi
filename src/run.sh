@@ -14,7 +14,7 @@ while true; do
     fi
 
     while true; do
-        echo -n "Vuoi procedere (s/n)? "
+        echo -n "Vuoi riprovare (s/n)? "
         read risposta
 
         if [[ $risposta == "s" ]]; then
