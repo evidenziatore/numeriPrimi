@@ -1,33 +1,35 @@
+import java.util.Date;
+
 public class Main {
     public static void main(String... args) {
-        stampaPrimi(Long.parseLong(args[0]), 2, true);
+        stampaPrimi(Long.parseLong(args[0]), 2, true, new Date());
     }
 
-    private static void stampaPrimi(long numero, long divisore, boolean primoGiro) {
+    private static void stampaPrimi(long numero, long possibileDivisore, boolean primoGiro, Date dataInizio) {
         if (primoGiro) {
             System.out.println();
             System.out.println(inserisciTrattini(true));
             System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
             System.out.println(inserisciTrattini(false));
         }
-        if (numero > 1 && !verificaPrimo(numero, true)) {
+        if (numero > 1 && !verificaPrimo(numero, possibileDivisore, true, dataInizio)) {
             long numeroVecchio = numero;
             long potenzaPrimo = 0;
-            while (verificaPrimo(divisore, false) && numero % divisore == 0) {
-                numero = numero / divisore;
+            while (verificaPrimo(possibileDivisore, 2, false, dataInizio) && numero % possibileDivisore == 0) {
+                numero = numero / possibileDivisore;
                 potenzaPrimo++;
             }
             if (potenzaPrimo > 0) {
-                System.out.println(inserisciSpazi(numeroVecchio, divisore, potenzaPrimo, numero));
+                System.out.println(inserisciSpazi(numeroVecchio, possibileDivisore, potenzaPrimo, numero));
                 System.out.println(inserisciTrattini(false));
             }
-            divisore++;
-            stampaPrimi(numero, divisore, false);
+            possibileDivisore++;
+            stampaPrimi(numero, possibileDivisore, false, dataInizio);
         }
     }
 
-    private static boolean verificaPrimo(long numero, boolean stampa) {
-        for (long i = 2; i * i <= numero; i++) {
+    private static boolean verificaPrimo(long numero, long possibileDivisore, boolean stampa, Date dataInizio) {
+        for (long i = possibileDivisore; i * i <= numero; i++) {
             if (numero % i == 0) {
                 return false;
             }
@@ -35,6 +37,8 @@ public class Main {
         if (stampa) {
             System.out.println(inserisciSpazi(numero, numero, "1", "1"));
             System.out.println(inserisciTrattini(true));
+            System.out.println();
+            System.out.println("TEMPO IMPIEGATO: " + (new Date().getTime() - dataInizio.getTime()) + " ms");
             System.out.println();
         }
         return true;
