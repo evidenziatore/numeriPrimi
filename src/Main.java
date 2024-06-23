@@ -12,10 +12,10 @@ public class Main {
             System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
             System.out.println(inserisciTrattini(false));
         }
-        if (numero > 1 && !verificaPrimo(numero, possibileDivisore, true, dataInizio)) {
+        if (numero > 1 && !verificaPrimo(numero, possibileDivisore, dataInizio)) {
             long numeroVecchio = numero;
             long potenzaPrimo = 0;
-            while (verificaPrimo(possibileDivisore, 2, false, dataInizio) && numero % possibileDivisore == 0) {
+            while (numero % possibileDivisore == 0) {
                 numero = numero / possibileDivisore;
                 potenzaPrimo++;
             }
@@ -28,19 +28,17 @@ public class Main {
         }
     }
 
-    private static boolean verificaPrimo(long numero, long possibileDivisore, boolean stampa, Date dataInizio) {
+    private static boolean verificaPrimo(long numero, long possibileDivisore, Date dataInizio) {
         for (long i = possibileDivisore; i * i <= numero; i++) {
             if (numero % i == 0) {
                 return false;
             }
         }
-        if (stampa) {
-            System.out.println(inserisciSpazi(numero, numero, "1", "1"));
-            System.out.println(inserisciTrattini(true));
-            System.out.println();
-            System.out.println("TEMPO IMPIEGATO: " + (new Date().getTime() - dataInizio.getTime()) + " ms");
-            System.out.println();
-        }
+        System.out.println(inserisciSpazi(numero, numero, "1", "1"));
+        System.out.println(inserisciTrattini(true));
+        System.out.println();
+        System.out.println("TEMPO IMPIEGATO: " + (new Date().getTime() - dataInizio.getTime()) + " ms");
+        System.out.println();
         return true;
     }
 
