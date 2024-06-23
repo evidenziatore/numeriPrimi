@@ -2,44 +2,38 @@ import java.util.Date;
 
 public class Main {
     public static void main(String... args) {
-        stampaPrimi(Long.parseLong(args[0]), 2, true, new Date());
+        stampaPrimi(Long.parseLong(args[0]));
     }
 
-    private static void stampaPrimi(long numero, long possibileDivisore, boolean primoGiro, Date dataInizio) {
-        if (primoGiro) {
-            System.out.println();
-            System.out.println(inserisciTrattini(true));
-            System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
-            System.out.println(inserisciTrattini(false));
-        }
-        if (numero > 1 && !verificaPrimo(numero, possibileDivisore, dataInizio)) {
-            long numeroVecchio = numero;
-            long potenzaPrimo = 0;
-            while (numero % possibileDivisore == 0) {
-                numero = numero / possibileDivisore;
-                potenzaPrimo++;
-            }
-            if (potenzaPrimo > 0) {
-                System.out.println(inserisciSpazi(numeroVecchio, possibileDivisore, potenzaPrimo, numero));
-                System.out.println(inserisciTrattini(false));
+    private static void stampaPrimi(long numero) {
+        Date dataInizio = new Date();
+        System.out.println();
+        System.out.println(inserisciTrattini(true));
+        System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
+        System.out.println(inserisciTrattini(false));
+        long possibileDivisore = 2;
+        while (numero >= possibileDivisore) {
+            if (numero % possibileDivisore == 0) {
+                long numeroVecchio = numero;
+                long potenzaPrimo = 0;
+                while (numero % possibileDivisore == 0) {
+                    numero = numero / possibileDivisore;
+                    potenzaPrimo++;
+                }
+                if (potenzaPrimo > 0) {
+                    System.out.println(inserisciSpazi(numeroVecchio, possibileDivisore, potenzaPrimo, numero));
+                    if (numero > 1) {
+                        System.out.println(inserisciTrattini(false));
+                    } else {
+                        System.out.println(inserisciTrattini(true));
+                    }
+                }
             }
             possibileDivisore++;
-            stampaPrimi(numero, possibileDivisore, false, dataInizio);
         }
-    }
-
-    private static boolean verificaPrimo(long numero, long possibileDivisore, Date dataInizio) {
-        for (long i = possibileDivisore; i * i <= numero; i++) {
-            if (numero % i == 0) {
-                return false;
-            }
-        }
-        System.out.println(inserisciSpazi(numero, numero, "1", "1"));
-        System.out.println(inserisciTrattini(true));
         System.out.println();
         System.out.println("TEMPO IMPIEGATO: " + (new Date().getTime() - dataInizio.getTime()) + " ms");
         System.out.println();
-        return true;
     }
 
     private static String inserisciSpazi(Object... numeriStringa) {
