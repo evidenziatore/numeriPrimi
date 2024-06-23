@@ -3,12 +3,7 @@ import java.util.Date;
 
 public class Main {
     public static void main(String... args) {
-        try {
-            BigInteger numero = new BigInteger(args[0]);
-            stampaPrimi(numero);
-        } catch (NumberFormatException e) {
-            System.out.println("Inserire un numero valido.");
-        }
+        stampaPrimi(new BigInteger(args[0]));
     }
 
     private static void stampaPrimi(BigInteger numero) {
