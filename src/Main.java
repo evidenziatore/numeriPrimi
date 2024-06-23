@@ -1,42 +1,48 @@
+import java.math.BigInteger;
 import java.util.Date;
 
 public class Main {
     public static void main(String... args) {
-        stampaPrimi(Long.parseLong(args[0]));
+        try {
+            BigInteger numero = new BigInteger(args[0]);
+            stampaPrimi(numero);
+        } catch (NumberFormatException e) {
+            System.out.println("Inserire un numero valido.");
+        }
     }
 
-    private static void stampaPrimi(long numero) {
+    private static void stampaPrimi(BigInteger numero) {
         Date dataInizio = new Date();
         System.out.println();
         System.out.println(inserisciTrattini(true));
         System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
         System.out.println(inserisciTrattini(false));
-        long possibileDivisore = primoOPrimoDivisore(numero, 2);
-        while (numero > 1 && numero >= possibileDivisore) {
-            long numeroVecchio = numero;
+        BigInteger divisore = primoDivisore(numero, BigInteger.valueOf(2));
+        while (numero.compareTo(BigInteger.ONE) > 0 && numero.compareTo(divisore) >= 0) {
+            BigInteger numeroVecchio = numero;
             long potenzaPrimo = 0;
-            while (numero % possibileDivisore == 0) {
-                numero = numero / possibileDivisore;
+            do {
+                numero = numero.divide(divisore);
                 potenzaPrimo++;
-            }
+            } while (numero.mod(divisore).equals(BigInteger.ZERO));
             if (potenzaPrimo > 0) {
-                System.out.println(inserisciSpazi(numeroVecchio, possibileDivisore, potenzaPrimo, numero));
-                if (numero > 1) {
+                System.out.println(inserisciSpazi(numeroVecchio, divisore, potenzaPrimo, numero));
+                if (numero.compareTo(BigInteger.ONE) > 0) {
                     System.out.println(inserisciTrattini(false));
                 } else {
                     System.out.println(inserisciTrattini(true));
                 }
             }
-            possibileDivisore = primoOPrimoDivisore(numero, possibileDivisore);
+            divisore = primoDivisore(numero, divisore);
         }
         System.out.println();
         System.out.println("TEMPO IMPIEGATO: " + (new Date().getTime() - dataInizio.getTime()) + " ms");
         System.out.println();
     }
 
-    private static long primoOPrimoDivisore(long numero, long possibileDivisore) {
-        for (long i = possibileDivisore; i * i <= numero; i++) {
-            if (numero % i == 0) {
+    private static BigInteger primoDivisore(BigInteger numero, BigInteger possibileDivisore) {
+        for (BigInteger i = possibileDivisore; i.multiply(i).compareTo(numero) <= 0; i = i.add(BigInteger.ONE)) {
+            if (numero.mod(i).equals(BigInteger.ZERO)) {
                 return i;
             }
         }
