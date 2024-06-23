@@ -12,6 +12,7 @@ spin() {
         sleep $delay
         printf "\b\b\b\b\b\b"
     done
+    printf "    \b\b\b\b"
 }
 
 while true; do

@@ -11,29 +11,36 @@ public class Main {
         System.out.println(inserisciTrattini(true));
         System.out.println(inserisciSpazi("Numero", "Divisore Primo", "Potenza Divisore", "Risultato"));
         System.out.println(inserisciTrattini(false));
-        long possibileDivisore = 2;
-        while (numero >= possibileDivisore) {
-            if (numero % possibileDivisore == 0) {
-                long numeroVecchio = numero;
-                long potenzaPrimo = 0;
-                while (numero % possibileDivisore == 0) {
-                    numero = numero / possibileDivisore;
-                    potenzaPrimo++;
-                }
-                if (potenzaPrimo > 0) {
-                    System.out.println(inserisciSpazi(numeroVecchio, possibileDivisore, potenzaPrimo, numero));
-                    if (numero > 1) {
-                        System.out.println(inserisciTrattini(false));
-                    } else {
-                        System.out.println(inserisciTrattini(true));
-                    }
+        long possibileDivisore = primoOPrimoDivisore(numero, 2);
+        while (numero > 1 && numero >= possibileDivisore) {
+            long numeroVecchio = numero;
+            long potenzaPrimo = 0;
+            while (numero % possibileDivisore == 0) {
+                numero = numero / possibileDivisore;
+                potenzaPrimo++;
+            }
+            if (potenzaPrimo > 0) {
+                System.out.println(inserisciSpazi(numeroVecchio, possibileDivisore, potenzaPrimo, numero));
+                if (numero > 1) {
+                    System.out.println(inserisciTrattini(false));
+                } else {
+                    System.out.println(inserisciTrattini(true));
                 }
             }
-            possibileDivisore++;
+            possibileDivisore = primoOPrimoDivisore(numero, possibileDivisore);
         }
         System.out.println();
         System.out.println("TEMPO IMPIEGATO: " + (new Date().getTime() - dataInizio.getTime()) + " ms");
         System.out.println();
+    }
+
+    private static long primoOPrimoDivisore(long numero, long possibileDivisore) {
+        for (long i = possibileDivisore; i * i <= numero; i++) {
+            if (numero % i == 0) {
+                return i;
+            }
+        }
+        return numero;
     }
 
     private static String inserisciSpazi(Object... numeriStringa) {
