@@ -84,9 +84,9 @@ public class NumeriPrimiController extends BaseController implements Initializab
         risultato.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRisultato()));
         tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString()+"ms"));
         tabella.setVisible(true);
-        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + " in " + getTempoTotale() );
+        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + " in " + getTempoTotale() + ":" );
         risultatoFattorizzazione.setVisible(true);
-        fattori.setText("(" + getFattori() + ")" );
+        fattori.setText(getFattori());
         fattori.setVisible(true);
     }
 
@@ -101,8 +101,8 @@ public class NumeriPrimiController extends BaseController implements Initializab
     private String getFattori() {
         StringBuilder elencoFattori = new StringBuilder();
         for (NumeriPrimiObject e : tabella.getItems()) {
-            elencoFattori.append(e.getDivisorePrimo()).append(new BigInteger(e.getPotenzaDivisore()).compareTo(BigInteger.ONE) > 0 ? ("^" + e.getPotenzaDivisore()) : "").append("*");
+            elencoFattori.append(e.getDivisorePrimo()).append(new BigInteger(e.getPotenzaDivisore()).compareTo(BigInteger.ONE) > 0 ? ("^" + e.getPotenzaDivisore()) : "").append(" * ");
         }
-        return elencoFattori.substring(0,elencoFattori.toString().length()-1);
+        return elencoFattori.substring(0,elencoFattori.toString().length()-3);
     }
 }
