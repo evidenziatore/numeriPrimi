@@ -1,5 +1,6 @@
 package com.evidenziatore.numeriprimi;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -7,6 +8,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.math.BigInteger;
@@ -57,6 +59,14 @@ public class NumeriPrimiController extends BaseController implements Initializab
         numeroInput.textProperty().addListener((observable, oldValue, newValue) -> {
             calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato));
         });
+        Platform.runLater(() -> {
+            calcola.getScene().setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER && !calcola.isDisable()) {
+                calcola.fire();
+                event.consume();
+            }
+        });
+        });
     }
 
     @FXML
@@ -67,6 +77,7 @@ public class NumeriPrimiController extends BaseController implements Initializab
         risultatoFattorizzazione.setVisible(false);
         fattori.setVisible(false);
         tabella.setItems(FXCollections.observableArrayList(numeriPrimiService.generaTabellaPrimi(new BigInteger(numeroCercato))));
+        setTableSize(tabella);
         numero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
         divisorePrimo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDivisorePrimo()));
         potenzaDivisore.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotenzaDivisore()));

@@ -20,18 +20,18 @@
             <Insets left="5.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+      <HBox spacing="5.0">
          <children>
             <TextField fx:id="numeroInput" minWidth="260.0" />
             <Button fx:id="calcola" disable="true" mnemonicParsing="false" onAction="#actionCalcola" styleClass="confirmButton" text="Calcola" />
          </children>
          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
       <Label fx:id="risultatoFattorizzazione" styleClass="smallBoldLabel" visible="false" />
       <Label fx:id="fattori" layoutX="15.0" layoutY="184.0" styleClass="smallBoldLabel" visible="false" />
-      <TableView fx:id="tabella" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <TableView fx:id="tabella" maxHeight="300.0" visible="false">
         <columns>
           <TableColumn fx:id="numero" prefWidth="150.0" text="Numero" />
           <TableColumn fx:id="divisorePrimo" prefWidth="150.0" text="Divisore Primo" />
@@ -39,6 +39,9 @@
             <TableColumn fx:id="risultato" prefWidth="150.0" text="Risultato" />
             <TableColumn fx:id="tempiDiCalcolo" prefWidth="150.0" text="Tempi di Calcolo" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
 </VBox>

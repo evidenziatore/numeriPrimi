@@ -17,6 +17,7 @@ public class NumeriPrimiApplication extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm());
         stage.setScene(scene);
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image.png"))));
+        stage.setResizable(false);
         stage.show();
     }
 
