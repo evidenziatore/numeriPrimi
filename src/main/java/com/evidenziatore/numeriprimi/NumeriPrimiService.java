@@ -42,4 +42,9 @@ public class NumeriPrimiService {
         return numero;
     }
 
+    public String isPrimo(String numeroStringa) {
+        BigInteger numeroCorrente = new BigInteger(numeroStringa);
+        return numeroCorrente.isProbablePrime(100) ? "Primo" : "Non primo";
+    }
+
 }

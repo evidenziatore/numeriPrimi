@@ -41,13 +41,16 @@ public class NumeriPrimiController extends BaseController implements Initializab
     private TableColumn<NumeriPrimiObject, String> risultato;
 
     @FXML
+    private TableColumn<NumeriPrimiObject, String> tempiDiCalcolo;
+
+    @FXML
     private Label risultatoFattorizzazione;
 
     @FXML
     private Label fattori;
 
     @FXML
-    private TableColumn<NumeriPrimiObject, String> tempiDiCalcolo;
+    private Label isPrimo;
 
     private final NumeriPrimiService numeriPrimiService = new NumeriPrimiService();
 
@@ -58,6 +61,7 @@ public class NumeriPrimiController extends BaseController implements Initializab
         setTextFieldNumerico(numeroInput);
         numeroInput.textProperty().addListener((observable, oldValue, newValue) -> {
             calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato));
+            isPrimo.setText((newValue == null || newValue.isEmpty())?"":("("+numeriPrimiService.isPrimo(numeroInput.getText())+")"));
         });
         Platform.runLater(() -> {
             calcola.getScene().setOnKeyPressed(event -> {

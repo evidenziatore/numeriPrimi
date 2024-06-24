@@ -30,7 +30,7 @@ public class BaseController {
 
     protected void setTableSize(TableView tableView) {
         double rowHeight = 25;
-        double headerHeight = 28;
+        double headerHeight = 30;
         int numberOfRows = tableView.getItems().size();
         double totalHeight = headerHeight + (rowHeight * numberOfRows);
         tableView.setPrefHeight(totalHeight);
