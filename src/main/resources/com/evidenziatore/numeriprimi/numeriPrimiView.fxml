@@ -23,11 +23,6 @@
       <HBox spacing="5.0">
          <children>
             <TextField fx:id="numeroInput" minWidth="260.0" />
-            <Label fx:id="isPrimo" minWidth="80.0" styleClass="smallBoldLabel">
-               <HBox.margin>
-                  <Insets top="5.0" />
-               </HBox.margin>
-            </Label>
             <Button fx:id="calcola" disable="true" mnemonicParsing="false" onAction="#actionCalcola" styleClass="confirmButton" text="Calcola" />
          </children>
          <VBox.margin>

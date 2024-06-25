@@ -80,7 +80,6 @@ public class NumeriPrimiController extends BaseController implements Initializab
         risultatoFattorizzazione.setVisible(false);
         fattori.setVisible(false);
         tabella.setItems(FXCollections.observableArrayList(numeriPrimiService.generaTabellaPrimi(new BigInteger(numeroCercato))));
-        isPrimo.setText(tabella.getItems().size() > 1 ? "Non Primo" : "Primo");
         setTableSize(tabella);
         numero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
         divisorePrimo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDivisorePrimo()));
@@ -88,7 +87,7 @@ public class NumeriPrimiController extends BaseController implements Initializab
         risultato.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRisultato()));
         tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString() + "ms"));
         tabella.setVisible(true);
-        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + " in " + getTempoTotale() + ":");
+        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + (tabella.getItems().size() > 1 ? " (Non Primo)" : " (Primo)") + " in " + getTempoTotale() + ":");
         risultatoFattorizzazione.setVisible(true);
         fattori.setText(getFattori());
         fattori.setVisible(true);
