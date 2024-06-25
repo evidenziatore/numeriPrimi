@@ -1,21 +1,17 @@
 package com.evidenziatore.numeriprimi;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 public class NumeriPrimiController extends BaseController implements Initializable {
 
@@ -50,9 +46,13 @@ public class NumeriPrimiController extends BaseController implements Initializab
     private Label fattori;
 
     @FXML
-    private Label isPrimo;
+    private VBox progress;
 
-    private final NumeriPrimiService numeriPrimiService = new NumeriPrimiService();
+    @FXML
+    private ProgressBar barra;
+
+    @FXML
+    private Label percentuale;
 
     private String numeroCercato;
 
@@ -60,7 +60,7 @@ public class NumeriPrimiController extends BaseController implements Initializab
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTextFieldNumerico(numeroInput);
         numeroInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato));
+            calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato) || progress.isVisible());
         });
         Platform.runLater(() -> {
             calcola.getScene().setOnKeyPressed(event -> {
@@ -79,18 +79,27 @@ public class NumeriPrimiController extends BaseController implements Initializab
         tabella.setVisible(false);
         risultatoFattorizzazione.setVisible(false);
         fattori.setVisible(false);
-        tabella.setItems(FXCollections.observableArrayList(numeriPrimiService.generaTabellaPrimi(new BigInteger(numeroCercato))));
-        setTableSize(tabella);
-        numero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
-        divisorePrimo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDivisorePrimo()));
-        potenzaDivisore.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotenzaDivisore()));
-        risultato.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRisultato()));
-        tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString() + "ms"));
-        tabella.setVisible(true);
-        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + (tabella.getItems().size() > 1 ? " (Non Primo)" : " (Primo)") + " in " + getTempoTotale() + ":");
-        risultatoFattorizzazione.setVisible(true);
-        fattori.setText(getFattori());
-        fattori.setVisible(true);
+        progress.setVisible(true);
+        numeroInput.setDisable(true);
+        GeneraTabellaPrimiTask task = new GeneraTabellaPrimiTask(new BigInteger(numeroCercato));
+        barra.progressProperty().bind(task.progressProperty());
+        task.setOnSucceeded(event -> {
+            tabella.setItems(FXCollections.observableArrayList(task.getValue()));
+            setTableSize(tabella);
+            numero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
+            divisorePrimo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDivisorePrimo()));
+            potenzaDivisore.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotenzaDivisore()));
+            risultato.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRisultato()));
+            tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString() + "ms"));
+            tabella.setVisible(true);
+            risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + (tabella.getItems().size() > 1 ? " (Non Primo)" : " (Primo)") + " in " + getTempoTotale() + ":");
+            risultatoFattorizzazione.setVisible(true);
+            fattori.setText(getFattori());
+            fattori.setVisible(true);
+            progress.setVisible(false);
+            numeroInput.setDisable(false);
+        });
+        new Thread(task).start();
     }
 
     private String getTempoTotale() {

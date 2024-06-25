@@ -68,3 +68,9 @@
     -fx-border-color: transparent;
     -fx-alignment: CENTER;
 }
+
+.progress-bar .bar {
+    -fx-background-color: #00bfff;
+    -fx-background-radius: 10;
+}
+
