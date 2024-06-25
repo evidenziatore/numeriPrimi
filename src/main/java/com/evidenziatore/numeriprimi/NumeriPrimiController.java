@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-public class NumeriPrimiController extends BaseController implements Initializable{
+public class NumeriPrimiController extends BaseController implements Initializable {
 
     @FXML
     private TextField numeroInput;
@@ -61,15 +61,14 @@ public class NumeriPrimiController extends BaseController implements Initializab
         setTextFieldNumerico(numeroInput);
         numeroInput.textProperty().addListener((observable, oldValue, newValue) -> {
             calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato));
-            isPrimo.setText((newValue == null || newValue.isEmpty())?"":("("+numeriPrimiService.isPrimo(numeroInput.getText())+")"));
         });
         Platform.runLater(() -> {
             calcola.getScene().setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER && !calcola.isDisable()) {
-                calcola.fire();
-                event.consume();
-            }
-        });
+                if (event.getCode() == KeyCode.ENTER && !calcola.isDisable()) {
+                    calcola.fire();
+                    event.consume();
+                }
+            });
         });
     }
 
@@ -81,14 +80,15 @@ public class NumeriPrimiController extends BaseController implements Initializab
         risultatoFattorizzazione.setVisible(false);
         fattori.setVisible(false);
         tabella.setItems(FXCollections.observableArrayList(numeriPrimiService.generaTabellaPrimi(new BigInteger(numeroCercato))));
+        isPrimo.setText(tabella.getItems().size() > 1 ? "Non Primo" : "Primo");
         setTableSize(tabella);
         numero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
         divisorePrimo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDivisorePrimo()));
         potenzaDivisore.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPotenzaDivisore()));
         risultato.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRisultato()));
-        tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString()+"ms"));
+        tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString() + "ms"));
         tabella.setVisible(true);
-        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + " in " + getTempoTotale() + ":" );
+        risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + " in " + getTempoTotale() + ":");
         risultatoFattorizzazione.setVisible(true);
         fattori.setText(getFattori());
         fattori.setVisible(true);
@@ -99,7 +99,7 @@ public class NumeriPrimiController extends BaseController implements Initializab
         for (NumeriPrimiObject e : tabella.getItems()) {
             tempoTotale += e.getTempiDiCalcolo();
         }
-        return tempoTotale+"ms";
+        return tempoTotale + "ms";
     }
 
     private String getFattori() {
@@ -107,6 +107,6 @@ public class NumeriPrimiController extends BaseController implements Initializab
         for (NumeriPrimiObject e : tabella.getItems()) {
             elencoFattori.append(e.getDivisorePrimo()).append(new BigInteger(e.getPotenzaDivisore()).compareTo(BigInteger.ONE) > 0 ? ("^" + e.getPotenzaDivisore()) : "").append(" * ");
         }
-        return elencoFattori.substring(0,elencoFattori.toString().length()-3);
+        return elencoFattori.substring(0, elencoFattori.toString().length() - 3);
     }
 }

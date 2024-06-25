@@ -8,7 +8,7 @@ public class NumeriPrimiObject {
     private String divisorePrimo;
     private String potenzaDivisore;
     private String risultato;
-    private  Long tempiDiCalcolo;
+    private Long tempiDiCalcolo;
 
     public NumeriPrimiObject() {
     }
