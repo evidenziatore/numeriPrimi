@@ -92,7 +92,7 @@ public class NumeriPrimiController extends BaseController implements Initializab
             risultato.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRisultato()));
             tempiDiCalcolo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTempiDiCalcolo().toString() + "ms"));
             tabella.setVisible(true);
-            risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + (tabella.getItems().size() > 1 ? " (Non Primo)" : " (Primo)") + " in " + getTempoTotale() + ":");
+            risultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + (tabella.getItems().size() == 1 && "1".equals(tabella.getItems().get(0).getPotenzaDivisore()) ? " (Primo)" : " (Non Primo)") + " in " + getTempoTotale() + ":");
             risultatoFattorizzazione.setVisible(true);
             fattori.setText(getFattori());
             fattori.setVisible(true);
