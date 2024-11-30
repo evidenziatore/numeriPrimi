@@ -19,7 +19,7 @@ public class GeneraTabellaPrimiTask extends Task<List<NumeriPrimiObject>> {
     }
 
     @Override
-    protected List<NumeriPrimiObject> call() throws Exception {
+    protected List<NumeriPrimiObject> call() {
         List<NumeriPrimiObject> numeriPrimiObjectList = new ArrayList<>();
         Date dataInizio = new Date();
         BigInteger divisore = primoDivisore(numeroCercato, BigInteger.valueOf(2));

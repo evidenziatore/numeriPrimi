@@ -16,14 +16,15 @@ public class BaseController {
 
     UnaryOperator<TextFormatter.Change> textFieldNumerico = change -> {
         if (change.isContentChange()) {
-            if (!change.getControlNewText().matches("\\d*")) {
+            String newText = change.getControlNewText();
+            if (!newText.matches("\\d*") || newText.startsWith("0")) {
                 return null;
             }
         }
         return change;
     };
 
-    protected void setTextFieldNumerico(TextField textField) {
+    protected void setTextFieldNumericoMaggioreDiZero(TextField textField) {
         TextFormatter<String> textFormatter = new TextFormatter<>(textFieldNumerico);
         textField.setTextFormatter(textFormatter);
     }

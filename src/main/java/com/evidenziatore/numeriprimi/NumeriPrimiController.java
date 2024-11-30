@@ -58,9 +58,9 @@ public class NumeriPrimiController extends BaseController implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setTextFieldNumerico(numeroInput);
+        setTextFieldNumericoMaggioreDiZero(numeroInput);
         numeroInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato) || progress.isVisible());
+            calcola.setDisable(newValue == null || newValue.isEmpty() || newValue.equals(numeroCercato) || progress.isVisible() || "1".equals(newValue));
         });
         Platform.runLater(() -> {
             calcola.getScene().setOnKeyPressed(event -> {

@@ -16,7 +16,7 @@
   </padding>
    <children>
       <Label styleClass="bigBoldLabel" text="Benvenuto nel miglior programma per la scomposizione in fattori primi!" />
-      <Label styleClass="smallBoldLabel" text="Inserisci un numero e premi il pulsante 'Calcola' per proseguire">
+      <Label styleClass="smallBoldLabel" text="Inserisci un numero maggiore di 1 e premi il pulsante 'Calcola' per proseguire">
          <VBox.margin>
             <Insets left="5.0" top="10.0" />
          </VBox.margin>
