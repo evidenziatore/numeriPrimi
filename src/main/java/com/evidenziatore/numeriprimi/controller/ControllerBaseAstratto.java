@@ -7,7 +7,7 @@ import javafx.scene.control.TextFormatter;
 import java.util.function.UnaryOperator;
 
 //controller astratto contenente funzionalita' frontend generiche
-public abstract class BaseController {
+public abstract class ControllerBaseAstratto {
 
     UnaryOperator<TextFormatter.Change> campoDiTestoNumericoMaggioreDiZero = cambiamento -> {
         if (cambiamento.isContentChange()) {

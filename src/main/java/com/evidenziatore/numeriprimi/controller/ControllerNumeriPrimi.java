@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ControllerNumeriPrimi extends BaseController implements Initializable {
+public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Initializable {
 
     @FXML
     private TextField textFieldNumero;
@@ -74,18 +74,18 @@ public class ControllerNumeriPrimi extends BaseController implements Initializab
     }
 
     @FXML
-    protected void actionCalcola() {
+    protected void azioneBottoneCalcola() {
         listaRigaTabellaNumeriPrimi.clear();
         generaTabellaECalcolaVisibilitaComponenti();
     }
 
     @FXML
-    protected void actionAnnulla() {
+    protected void azioneBottoneAnnulla() {
         taskGeneraTabellaPrimi.setDaStoppare(true);
     }
 
     @FXML
-    protected void actionContinua() {
+    protected void azioneBottoneContinua() {
         generaTabellaECalcolaVisibilitaComponenti();
     }
 

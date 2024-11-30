@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class NumeriPrimiApplication extends Application {
+public class ApplicationNumeriPrimi extends Application {
 
     /**
      * @param maschera Lo Stage che contiene la scena.
@@ -18,7 +18,7 @@ public class NumeriPrimiApplication extends Application {
      */
     @Override
     public void start(Stage maschera) throws IOException {
-        FXMLLoader caricatoreFXML = new FXMLLoader(NumeriPrimiApplication.class.getResource("numeriPrimiView.fxml"));
+        FXMLLoader caricatoreFXML = new FXMLLoader(ApplicationNumeriPrimi.class.getResource("viewNumeriPrimi.fxml"));
         maschera.setScene(generaScena(caricatoreFXML));
         maschera.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image.png"))));
         maschera.show();

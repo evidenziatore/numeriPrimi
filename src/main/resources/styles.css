@@ -8,55 +8,55 @@
 
 
 /* INIZIO BUTTON */
-.defaultButton {
+.buttonDefaultBlu {
     -fx-background-color: #0D47A1;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
-.defaultButton:hover {
+.buttonDefaultBlu:hover {
     -fx-background-color: #1565C0;
 }
-.defaultButton:pressed {
+.buttonDefaultBlu:pressed {
     -fx-background-color: #1976D2;
 }
 
-.confermaButton {
+.buttonConfermaVerde {
     -fx-background-color: #1B5E20;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
-.confermaButton:hover {
+.buttonConfermaVerde:hover {
     -fx-background-color: #388E3C;
 }
-.confermaButton:pressed {
+.buttonConfermaVerde:pressed {
     -fx-background-color: #4CAF50;
 }
 
-.annullaButton {
+.buttonAnnullaRosso {
     -fx-background-color: #B71C1C;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-cursor: hand;
 }
-.annullaButton:hover {
+.buttonAnnullaRosso:hover {
     -fx-background-color: #D32F2F;
 }
-.annullaButton:pressed {
+.buttonAnnullaRosso:pressed {
     -fx-background-color: #E53935;
 }
 /* FINE BUTTON */
 
 
 /* INIZIO LABEL */
-.piccolaGrossettoLabel {
+.labelPiccolaGrossettoNera {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
 
-.grandeGrossettoLabel {
+.labelGrandeGrossettoNera {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
