@@ -19,6 +19,36 @@
     -fx-background-color: #4CAF50;
 }
 
+.cancelButton {
+    -fx-background-color: #B71C1C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.cancelButton:hover {
+    -fx-background-color: #D32F2F;
+}
+
+.cancelButton:pressed {
+    -fx-background-color: #E53935;
+}
+
+.primaryButton {
+    -fx-background-color: #0D47A1;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.primaryButton:hover {
+    -fx-background-color: #1565C0;
+}
+
+.primaryButton:pressed {
+    -fx-background-color: #1976D2;
+}
+
 .smallBoldLabel {
     -fx-font-size: 14px;
     -fx-font-weight: bold;

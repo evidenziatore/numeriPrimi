@@ -42,6 +42,7 @@
                   <Insets />
                </VBox.margin>
             </ProgressBar>
+            <Button fx:id="annulla" mnemonicParsing="false" onAction="#actionAnnulla" styleClass="cancelButton" text="Annulla" />
          </children>
          <VBox.margin>
             <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
@@ -49,17 +50,22 @@
       </VBox>
       <Label fx:id="risultatoFattorizzazione" styleClass="smallBoldLabel" visible="false" />
       <Label fx:id="fattori" layoutX="15.0" layoutY="184.0" styleClass="smallBoldLabel" visible="false" />
-      <TableView fx:id="tabella" maxHeight="300.0" visible="false">
-        <columns>
-          <TableColumn fx:id="numero" prefWidth="150.0" text="Numero" />
-          <TableColumn fx:id="divisorePrimo" prefWidth="150.0" text="Divisore Primo" />
-            <TableColumn fx:id="potenzaDivisore" prefWidth="150.0" text="Potenza Divisore" />
-            <TableColumn fx:id="risultato" prefWidth="150.0" text="Risultato" />
-            <TableColumn fx:id="tempiDiCalcolo" prefWidth="150.0" text="Tempi di Calcolo" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
+      <VBox fx:id="tableBox" alignment="TOP_CENTER" visible="false">
+         <children>
+            <TableView fx:id="tabella" maxHeight="300.0">
+              <columns>
+                <TableColumn fx:id="numero" prefWidth="150.0" text="Numero" />
+                <TableColumn fx:id="divisorePrimo" prefWidth="150.0" text="Divisore Primo" />
+                  <TableColumn fx:id="potenzaDivisore" prefWidth="150.0" text="Potenza Divisore" />
+                  <TableColumn fx:id="risultato" prefWidth="150.0" text="Risultato" />
+                  <TableColumn fx:id="tempiDiCalcolo" prefWidth="150.0" text="Tempi di Calcolo" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button fx:id="continua" mnemonicParsing="false" onAction="#actionContinua" styleClass="primaryButton" text="Continua" />
+         </children>
+      </VBox>
    </children>
 </VBox>
