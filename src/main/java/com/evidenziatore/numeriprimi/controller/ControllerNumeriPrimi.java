@@ -62,7 +62,7 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
     @Override
     public void initialize(URL url, ResourceBundle caricatoreRisorse) {
         setCampoDiTestoNumericoMaggioreDiZero(textFieldNumero);
-        textFieldNumero.textProperty().addListener((observable, vecchioValore, nuovoValore) -> buttonCalcola.setDisable(nuovoValore == null || nuovoValore.isEmpty() || nuovoValore.equals(numeroCercato) || vBoxProgressione.isVisible() || "1".equals(nuovoValore)));
+        textFieldNumero.textProperty().addListener((observable, vecchioValore, nuovoValore) -> abilitaDisabilitaButtonCalcola(nuovoValore));
         Platform.runLater(() ->
                 buttonCalcola.getScene().setOnKeyPressed(evento -> {
                     if (evento.getCode() == KeyCode.ENTER && !buttonCalcola.isDisable()) {
@@ -71,6 +71,13 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
                     }
                 })
         );
+    }
+
+    /**
+     * @param nuovoValore La String che rappresenta il nuovo numero inserito nel TextField dall'utente.
+     */
+    private void abilitaDisabilitaButtonCalcola(String nuovoValore) {
+        buttonCalcola.setDisable(nuovoValore == null || nuovoValore.isEmpty() || nuovoValore.equals(numeroCercato) || vBoxProgressione.isVisible() || "1".equals(nuovoValore));
     }
 
     @FXML
@@ -107,8 +114,19 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
     }
 
     private void triggheraEventoDopoCompletamentoScomposizione() {
-        List<RigaTabellaNumeriPrimi> listaNumeriPrimi = taskGeneraTabellaPrimi.getValue();
-        tableNumeriPrimi.setItems(FXCollections.observableArrayList(listaNumeriPrimi));
+        List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi = taskGeneraTabellaPrimi.getValue();
+        generaTabella(listaRigaTabellaNumeriPrimi);
+        generaRisultatoFattorizzazione(listaRigaTabellaNumeriPrimi);
+        vBoxProgressione.setVisible(false);
+        vBoxProgressione.setManaged(false);
+        textFieldNumero.setDisable(false);
+    }
+
+    /**
+     * @param listaRigaTabellaNumeriPrimi La List<RigaTabellaNumeriPrimi> corrispondente all'elenco delle righe gia' individuate della TableView dei divisori del numero inserito nel TextField dall'utente.
+     */
+    private void generaTabella(List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi) {
+        tableNumeriPrimi.setItems(FXCollections.observableArrayList(listaRigaTabellaNumeriPrimi));
         setAltezzaTabella(tableNumeriPrimi);
         columnNumero.setCellValueFactory(valoreCella -> new SimpleStringProperty(valoreCella.getValue().numero()));
         columnDivisorePrimo.setCellValueFactory(valoreCella -> new SimpleStringProperty(valoreCella.getValue().divisorePrimo()));
@@ -116,7 +134,13 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
         columnRisultato.setCellValueFactory(valoreCella -> new SimpleStringProperty(valoreCella.getValue().risultato()));
         columnTempiDiCalcolo.setCellValueFactory(valoreCella -> new SimpleStringProperty(valoreCella.getValue().tempiDiCalcolo().toString() + "ms"));
         vBoxTabella.setVisible(true);
-        if (listaNumeriPrimi.stream().anyMatch(rigaTabellaNumeriPrimi -> "1".equals(rigaTabellaNumeriPrimi.risultato()))) {
+    }
+
+    /**
+     * @param listaRigaTabellaNumeriPrimi La List<RigaTabellaNumeriPrimi> corrispondente all'elenco delle righe gia' individuate della TableView dei divisori del numero inserito nel TextField dall'utente.
+     */
+    private void generaRisultatoFattorizzazione(List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi) {
+        if (listaRigaTabellaNumeriPrimi.stream().anyMatch(rigaTabellaNumeriPrimi -> "1".equals(rigaTabellaNumeriPrimi.risultato()))) {
             labelRisultatoFattorizzazione.setText("Risultato scomposizione " + numeroCercato + (tableNumeriPrimi.getItems().size() == 1 && "1".equals(tableNumeriPrimi.getItems().getFirst().potenzaDivisore()) ? " (Primo)" : " (Non Primo)") + " in " + getTempoTotale() + ":");
             buttonContinua.setVisible(false);
         } else {
@@ -127,9 +151,6 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
         if (!tableNumeriPrimi.getItems().isEmpty())
             labelFattori.setText(getFattori());
         labelFattori.setVisible(true);
-        vBoxProgressione.setVisible(false);
-        vBoxProgressione.setManaged(false);
-        textFieldNumero.setDisable(false);
     }
 
     /**
