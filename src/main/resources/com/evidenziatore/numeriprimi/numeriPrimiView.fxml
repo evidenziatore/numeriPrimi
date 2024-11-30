@@ -10,61 +10,66 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evidenziatore.numeriprimi.controller.NumeriPrimiController">
+<VBox spacing="5.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.evidenziatore.numeriprimi.controller.ControllerNumeriPrimi">
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
     <children>
-        <Label styleClass="bigBoldLabel" text="Benvenuto nel miglior programma per la scomposizione in fattori primi!" />
-        <Label styleClass="smallBoldLabel" text="Inserisci un numero maggiore di 1 e premi il pulsante 'Calcola' per proseguire">
+        <Label styleClass="bigBoldLabel" text="Benvenuto nel miglior programma per la scomposizione in fattori primi!"/>
+        <Label styleClass="smallBoldLabel"
+               text="Inserisci un numero maggiore di 1 e premi il pulsante 'Calcola' per proseguire">
             <VBox.margin>
-                <Insets left="5.0" top="10.0" />
+                <Insets left="5.0" top="10.0"/>
             </VBox.margin>
         </Label>
         <HBox spacing="5.0">
             <children>
-                <TextField fx:id="textFieldNumero" minWidth="260.0" />
-                <Button fx:id="buttonCalcola" disable="true" mnemonicParsing="false" onAction="#actionCalcola" styleClass="confirmButton" text="Calcola" />
+                <TextField fx:id="textFieldNumero" minWidth="260.0"/>
+                <Button fx:id="buttonCalcola" disable="true" mnemonicParsing="false" onAction="#actionCalcola"
+                        styleClass="confirmButton" text="Calcola"/>
             </children>
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </HBox>
         <VBox fx:id="vBoxProgressione" alignment="TOP_CENTER" visible="false">
             <children>
                 <Label fx:id="labelPercentuale" text="Elaborazione in corso..." textFill="#a8a1a1">
                     <VBox.margin>
-                        <Insets />
+                        <Insets/>
                     </VBox.margin>
                 </Label>
                 <ProgressBar fx:id="progressBarBarraProgressione" maxWidth="1.7976931348623157E308" progress="0.0">
                     <VBox.margin>
-                        <Insets />
+                        <Insets/>
                     </VBox.margin>
                 </ProgressBar>
-                <Button fx:id="buttonAnnulla" mnemonicParsing="false" onAction="#actionAnnulla" styleClass="cancelButton" text="Annulla" />
+                <Button fx:id="buttonAnnulla" mnemonicParsing="false" onAction="#actionAnnulla"
+                        styleClass="cancelButton" text="Annulla"/>
             </children>
             <VBox.margin>
-                <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="20.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </VBox>
-        <Label fx:id="labelRisultatoFattorizzazione" styleClass="smallBoldLabel" visible="false" />
-        <Label fx:id="labelFattori" layoutX="15.0" layoutY="184.0" styleClass="smallBoldLabel" visible="false" />
+        <Label fx:id="labelRisultatoFattorizzazione" styleClass="smallBoldLabel" visible="false"/>
+        <Label fx:id="labelFattori" layoutX="15.0" layoutY="184.0" styleClass="smallBoldLabel" visible="false"/>
         <VBox fx:id="vBoxTabella" alignment="TOP_CENTER" visible="false">
             <children>
                 <TableView fx:id="tableNumeriPrimi" maxHeight="300.0">
                     <columns>
-                        <TableColumn fx:id="columnNumero" prefWidth="150.0" text="Numero" />
-                        <TableColumn fx:id="columnDivisorePrimo" prefWidth="150.0" text="Divisore Primo" />
-                        <TableColumn fx:id="columnPotenzaDivisore" prefWidth="150.0" text="Potenza Divisore" />
-                        <TableColumn fx:id="columnRisultato" prefWidth="150.0" text="Risultato" />
-                        <TableColumn fx:id="columnTempiDiCalcolo" prefWidth="150.0" text="Tempi di Calcolo" />
+                        <TableColumn fx:id="columnNumero" prefWidth="150.0" text="Numero"/>
+                        <TableColumn fx:id="columnDivisorePrimo" prefWidth="150.0" text="Divisore Primo"/>
+                        <TableColumn fx:id="columnPotenzaDivisore" prefWidth="150.0" text="Potenza Divisore"/>
+                        <TableColumn fx:id="columnRisultato" prefWidth="150.0" text="Risultato"/>
+                        <TableColumn fx:id="columnTempiDiCalcolo" prefWidth="150.0" text="Tempi di Calcolo"/>
                     </columns>
                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
                 </TableView>
-                <Button fx:id="buttonContinua" mnemonicParsing="false" onAction="#actionContinua" styleClass="primaryButton" text="Continua" />
+                <Button fx:id="buttonContinua" mnemonicParsing="false" onAction="#actionContinua"
+                        styleClass="primaryButton" text="Continua"/>
             </children>
         </VBox>
     </children>

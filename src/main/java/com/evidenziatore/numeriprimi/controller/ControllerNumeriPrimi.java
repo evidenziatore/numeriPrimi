@@ -1,6 +1,6 @@
 package com.evidenziatore.numeriprimi.controller;
 
-import com.evidenziatore.numeriprimi.task.GeneraTabellaPrimiTask;
+import com.evidenziatore.numeriprimi.task.TaskGeneraTabellaPrimi;
 import com.evidenziatore.numeriprimi.entita.RigaTabellaNumeriPrimi;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,59 +17,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class NumeriPrimiController extends BaseController implements Initializable {
+//controller principale
+public class ControllerNumeriPrimi extends BaseController implements Initializable {
 
     @FXML
     private TextField textFieldNumero;
 
     @FXML
     private Button buttonCalcola;
-
     @FXML
     private Button buttonAnnulla;
-
     @FXML
     private Button buttonContinua;
 
     @FXML
     private VBox vBoxTabella;
+    @FXML
+    private VBox vBoxProgressione;
 
     @FXML
     private TableView<RigaTabellaNumeriPrimi> tableNumeriPrimi;
-
     @FXML
     private TableColumn<RigaTabellaNumeriPrimi, String> columnNumero;
-
     @FXML
     private TableColumn<RigaTabellaNumeriPrimi, String> columnDivisorePrimo;
-
     @FXML
     private TableColumn<RigaTabellaNumeriPrimi, String> columnPotenzaDivisore;
-
     @FXML
     private TableColumn<RigaTabellaNumeriPrimi, String> columnRisultato;
-
     @FXML
     private TableColumn<RigaTabellaNumeriPrimi, String> columnTempiDiCalcolo;
 
     @FXML
     private Label labelRisultatoFattorizzazione;
-
     @FXML
     private Label labelFattori;
-
     @FXML
-    private VBox vBoxProgressione;
+    private Label labelPercentuale;
 
     @FXML
     private ProgressBar progressBarBarraProgressione;
 
-    @FXML
-    private Label labelPercentuale;
-
     private String numeroCercato;
 
-    GeneraTabellaPrimiTask taskGeneraTabellaPrimi;
+    TaskGeneraTabellaPrimi taskGeneraTabellaPrimi;
 
     List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi = new ArrayList<>();
 
@@ -112,15 +103,15 @@ public class NumeriPrimiController extends BaseController implements Initializab
         vBoxProgressione.setVisible(true);
         vBoxProgressione.setManaged(true);
         textFieldNumero.setDisable(true);
-        taskGeneraTabellaPrimi = new GeneraTabellaPrimiTask(new BigInteger(numeroCercato), listaRigaTabellaNumeriPrimi);
+        taskGeneraTabellaPrimi = new TaskGeneraTabellaPrimi(new BigInteger(numeroCercato), listaRigaTabellaNumeriPrimi);
         progressBarBarraProgressione.progressProperty().bind(taskGeneraTabellaPrimi.progressProperty());
-        taskGeneraTabellaPrimi.setOnSucceeded(evento -> triggeraEventoScomposizioneCompletata());
+        taskGeneraTabellaPrimi.setOnSucceeded(evento -> triggheraEventoScomposizioneCompletata());
         Thread thread = new Thread(taskGeneraTabellaPrimi);
         thread.setDaemon(true);
         thread.start();
     }
 
-    private void triggeraEventoScomposizioneCompletata() {
+    private void triggheraEventoScomposizioneCompletata() {
         List<RigaTabellaNumeriPrimi> listaNumeriPrimi = taskGeneraTabellaPrimi.getValue();
         tableNumeriPrimi.setItems(FXCollections.observableArrayList(listaNumeriPrimi));
         setAltezzaTabella(tableNumeriPrimi);

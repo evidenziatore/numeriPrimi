@@ -9,7 +9,7 @@ import java.util.function.UnaryOperator;
 //controller contenente funzionalita' generiche che puo' essere esteso per non duplicarle
 public class BaseController {
 
-    UnaryOperator<TextFormatter.Change> campoDiTestoNumerico = cambiamento -> {
+    UnaryOperator<TextFormatter.Change> campoDiTestoNumericoMaggioreDiZero = cambiamento -> {
         if (cambiamento.isContentChange()) {
             String nuovoTesto = cambiamento.getControlNewText();
             if (!nuovoTesto.matches("\\d*") || nuovoTesto.startsWith("0")) return null;
@@ -18,7 +18,7 @@ public class BaseController {
     };
 
     protected void setCampoDiTestoNumericoMaggioreDiZero(TextField campoDiTesto) {
-        TextFormatter<String> formattatoreTesto = new TextFormatter<>(campoDiTestoNumerico);
+        TextFormatter<String> formattatoreTesto = new TextFormatter<>(campoDiTestoNumericoMaggioreDiZero);
         campoDiTesto.setTextFormatter(formattatoreTesto);
     }
 

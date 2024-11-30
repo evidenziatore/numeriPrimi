@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
-public class GeneraTabellaPrimiTask extends Task<List<RigaTabellaNumeriPrimi>> {
+public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
 
     private BigInteger numeroCercato;
 
@@ -15,7 +15,7 @@ public class GeneraTabellaPrimiTask extends Task<List<RigaTabellaNumeriPrimi>> {
 
     List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi;
 
-    public GeneraTabellaPrimiTask(BigInteger numeroCercato, List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi) {
+    public TaskGeneraTabellaPrimi(BigInteger numeroCercato, List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi) {
         this.numeroCercato = numeroCercato;
         this.listaRigaTabellaNumeriPrimi = listaRigaTabellaNumeriPrimi;
     }
