@@ -10,16 +10,21 @@ import java.util.List;
 public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
 
     private BigInteger numeroCercato;
-
     private boolean daStoppare = false;
-
     List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi;
 
+    /**
+     * @param numeroCercato               Il BigInteger corrispondente al numero inserito nel TextField dall'utente o un suo divisore.
+     * @param listaRigaTabellaNumeriPrimi La List<RigaTabellaNumeriPrimi> corrispondente all'elenco delle righe gia' individuate della TableView dei divisori del numero inserito nel TextField dall'utente.
+     */
     public TaskGeneraTabellaPrimi(BigInteger numeroCercato, List<RigaTabellaNumeriPrimi> listaRigaTabellaNumeriPrimi) {
         this.numeroCercato = numeroCercato;
         this.listaRigaTabellaNumeriPrimi = listaRigaTabellaNumeriPrimi;
     }
 
+    /**
+     * @return L'elenco delle righe della TableView dei divisori del numero inserito nel TextField dall'utente.
+     */
     @Override
     protected List<RigaTabellaNumeriPrimi> call() {
         Date dataInizio = new Date();
@@ -49,24 +54,18 @@ public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
         if (!listaRigaTabellaNumeriPrimi.isEmpty())
             for (RigaTabellaNumeriPrimi rigaTabellaNumeriPrimi : listaRigaTabellaNumeriPrimi) {
                 BigInteger contatore = BigInteger.ONE;
-                while (contatore.compareTo(new BigInteger(rigaTabellaNumeriPrimi.getPotenzaDivisore())) <= 0) {
+                while (contatore.compareTo(new BigInteger(rigaTabellaNumeriPrimi.potenzaDivisore())) <= 0) {
                     contatore = contatore.add(BigInteger.ONE);
-                    numeroCercato = numeroCercato.divide(new BigInteger(rigaTabellaNumeriPrimi.getDivisorePrimo()));
+                    numeroCercato = numeroCercato.divide(new BigInteger(rigaTabellaNumeriPrimi.divisorePrimo()));
                 }
             }
     }
 
-    private BigInteger modificaDivisorePrimoSeAnnullaContinua() {
-        if (!listaRigaTabellaNumeriPrimi.isEmpty()) {
-            BigInteger contatore = new BigInteger(listaRigaTabellaNumeriPrimi.getFirst().getDivisorePrimo());
-            for (RigaTabellaNumeriPrimi rigaTabellaNumeriPrimi : listaRigaTabellaNumeriPrimi)
-                if (contatore.compareTo(new BigInteger(rigaTabellaNumeriPrimi.getPotenzaDivisore())) <= 0)
-                    contatore = new BigInteger(rigaTabellaNumeriPrimi.getPotenzaDivisore());
-            return contatore.add(BigInteger.ONE);
-        }
-        return BigInteger.valueOf(2);
-    }
-
+    /**
+     * @param numero            Il BigInteger corrispondente al numero inserito nel TextField dall'utente o un suo divisore.
+     * @param possibileDivisore Il BigInteger corrispondente ad un possibile divisore del numero inserito nel TextField dall'utente.
+     * @return Il primo divisore del numero inserito nel TextField dall'utente maggiore o uguale al possibile divisore passato in input.
+     */
     private BigInteger primoDivisore(BigInteger numero, BigInteger possibileDivisore) {
         for (BigInteger i = possibileDivisore; i.multiply(i).compareTo(numero) <= 0; i = i.add(BigInteger.ONE)) {
             if (daStoppare) break;
@@ -75,6 +74,23 @@ public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
         return numero;
     }
 
+    /**
+     * @return Il primo possibile divisore a seguito del click sul pulsante 'Continua'.
+     */
+    private BigInteger modificaDivisorePrimoSeAnnullaContinua() {
+        if (!listaRigaTabellaNumeriPrimi.isEmpty()) {
+            BigInteger contatore = new BigInteger(listaRigaTabellaNumeriPrimi.getFirst().divisorePrimo());
+            for (RigaTabellaNumeriPrimi rigaTabellaNumeriPrimi : listaRigaTabellaNumeriPrimi)
+                if (contatore.compareTo(new BigInteger(rigaTabellaNumeriPrimi.potenzaDivisore())) <= 0)
+                    contatore = new BigInteger(rigaTabellaNumeriPrimi.potenzaDivisore());
+            return contatore.add(BigInteger.ONE);
+        }
+        return BigInteger.valueOf(2);
+    }
+
+    /**
+     * @param daStoppare Il boolean che indica se si deve fermare l'esecuzione dell'operazione.
+     */
     public void setDaStoppare(boolean daStoppare) {
         this.daStoppare = daStoppare;
     }

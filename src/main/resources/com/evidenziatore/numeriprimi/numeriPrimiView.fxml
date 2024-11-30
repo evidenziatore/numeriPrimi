@@ -15,8 +15,9 @@
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
-    <Label styleClass="bigBoldLabel" text="Benvenuto nel miglior programma per la scomposizione in fattori primi!"/>
-    <Label styleClass="smallBoldLabel"
+    <Label styleClass="grandeGrossettoLabel"
+           text="Benvenuto nel miglior programma per la scomposizione in fattori primi!"/>
+    <Label styleClass="piccolaGrossettoLabel"
            text="Inserisci un numero maggiore di 1 e premi il pulsante 'Calcola' per proseguire">
         <VBox.margin>
             <Insets left="5.0" top="10.0"/>
@@ -28,7 +29,7 @@
         </VBox.margin>
         <TextField fx:id="textFieldNumero" minWidth="260.0"/>
         <Button fx:id="buttonCalcola" disable="true" mnemonicParsing="false" onAction="#actionCalcola"
-                styleClass="confirmButton" text="Calcola"/>
+                styleClass="confermaButton" text="Calcola"/>
     </HBox>
     <VBox fx:id="vBoxProgressione" alignment="TOP_CENTER" visible="false">
         <VBox.margin>
@@ -45,10 +46,10 @@
             </VBox.margin>
         </ProgressBar>
         <Button mnemonicParsing="false" onAction="#actionAnnulla"
-                styleClass="cancelButton" text="Annulla"/>
+                styleClass="annullaButton" text="Annulla"/>
     </VBox>
-    <Label fx:id="labelRisultatoFattorizzazione" styleClass="smallBoldLabel" visible="false"/>
-    <Label fx:id="labelFattori" layoutX="15.0" layoutY="184.0" styleClass="smallBoldLabel" visible="false"/>
+    <Label fx:id="labelRisultatoFattorizzazione" styleClass="piccolaGrossettoLabel" visible="false"/>
+    <Label fx:id="labelFattori" layoutX="15.0" layoutY="184.0" styleClass="piccolaGrossettoLabel" visible="false"/>
     <VBox fx:id="vBoxTabella" alignment="TOP_CENTER" visible="false">
         <TableView fx:id="tableNumeriPrimi" maxHeight="300.0">
             <columns>
@@ -63,6 +64,6 @@
             </columnResizePolicy>
         </TableView>
         <Button fx:id="buttonContinua" mnemonicParsing="false" onAction="#actionContinua"
-                styleClass="primaryButton" text="Continua"/>
+                styleClass="defaultButton" text="Continua"/>
     </VBox>
 </VBox>
