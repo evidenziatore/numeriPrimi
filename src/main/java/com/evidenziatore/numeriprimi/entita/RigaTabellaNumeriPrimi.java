@@ -1,19 +1,16 @@
-package com.evidenziatore.numeriprimi;
+package com.evidenziatore.numeriprimi.entita;
 
-import java.math.BigInteger;
-import java.util.Date;
-
-public class NumeriPrimiObject {
+public class RigaTabellaNumeriPrimi {
     private String numero;
     private String divisorePrimo;
     private String potenzaDivisore;
     private String risultato;
     private Long tempiDiCalcolo;
 
-    public NumeriPrimiObject() {
+    public RigaTabellaNumeriPrimi() {
     }
 
-    public NumeriPrimiObject(String numero, String divisorePrimo, String potenzaDivisore, String risultato, Long tempiDiCalcolo) {
+    public RigaTabellaNumeriPrimi(String numero, String divisorePrimo, String potenzaDivisore, String risultato, Long tempiDiCalcolo) {
         this.numero = numero;
         this.divisorePrimo = divisorePrimo;
         this.potenzaDivisore = potenzaDivisore;
