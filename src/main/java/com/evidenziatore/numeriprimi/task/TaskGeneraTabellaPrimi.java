@@ -30,7 +30,6 @@ public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
             BigInteger numeroIniziale = numeroCercato;
             BigInteger potenzaPrimo = BigInteger.ZERO;
             do {
-                if (daStoppare) break;
                 numeroCercato = numeroCercato.divide(divisore);
                 potenzaPrimo = potenzaPrimo.add(BigInteger.ONE);
             } while (numeroCercato.mod(divisore).equals(BigInteger.ZERO));

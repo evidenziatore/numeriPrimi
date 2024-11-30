@@ -26,8 +26,6 @@ public class ControllerNumeriPrimi extends BaseController implements Initializab
     @FXML
     private Button buttonCalcola;
     @FXML
-    private Button buttonAnnulla;
-    @FXML
     private Button buttonContinua;
 
     @FXML
@@ -52,8 +50,6 @@ public class ControllerNumeriPrimi extends BaseController implements Initializab
     private Label labelRisultatoFattorizzazione;
     @FXML
     private Label labelFattori;
-    @FXML
-    private Label labelPercentuale;
 
     @FXML
     private ProgressBar progressBarBarraProgressione;

@@ -22,7 +22,7 @@ public class BaseController {
         campoDiTesto.setTextFormatter(formattatoreTesto);
     }
 
-    protected void setAltezzaTabella(TableView tabella) {
+    protected void setAltezzaTabella(TableView<?> tabella) {
         double altezzaRiga = 25;
         double altezzaHeader = 30;
         int numeroDiRighe = tabella.getItems().size();
