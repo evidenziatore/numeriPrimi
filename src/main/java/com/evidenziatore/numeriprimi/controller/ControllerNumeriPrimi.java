@@ -62,7 +62,7 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
     @Override
     public void initialize(URL url, ResourceBundle caricatoreRisorse) {
         setCampoDiTestoNumericoMaggioreDiZero(textFieldNumero);
-        textFieldNumero.textProperty().addListener((observable, vecchioValore, nuovoValore) -> abilitaDisabilitaButtonCalcola(nuovoValore));
+        textFieldNumero.textProperty().addListener((observable, vecchioValore, nuovoValore) -> abilitaDisabilitaButtonCalcolaEContinua(nuovoValore));
         Platform.runLater(() ->
                 buttonCalcola.getScene().setOnKeyPressed(evento -> {
                     if (evento.getCode() == KeyCode.ENTER && !buttonCalcola.isDisable()) {
@@ -76,8 +76,9 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
     /**
      * @param nuovoValore La String che rappresenta il nuovo numero inserito nel TextField dall'utente.
      */
-    private void abilitaDisabilitaButtonCalcola(String nuovoValore) {
+    private void abilitaDisabilitaButtonCalcolaEContinua(String nuovoValore) {
         buttonCalcola.setDisable(nuovoValore == null || nuovoValore.isEmpty() || nuovoValore.equals(numeroCercato) || vBoxProgressione.isVisible() || "1".equals(nuovoValore));
+        buttonContinua.setDisable(!buttonCalcola.isDisable());
     }
 
     @FXML
@@ -89,6 +90,7 @@ public class ControllerNumeriPrimi extends ControllerBaseAstratto implements Ini
     @FXML
     protected void azioneBottoneAnnulla() {
         taskGeneraTabellaPrimi.setDaStoppare(true);
+        buttonContinua.setDisable(false);
     }
 
     @FXML
