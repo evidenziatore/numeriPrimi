@@ -3,9 +3,14 @@ package com.evidenziatore.numeriprimi.task;
 import com.evidenziatore.numeriprimi.entita.RigaTabellaNumeriPrimi;
 import javafx.concurrent.Task;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigInteger;
-import java.util.Date;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
 
@@ -24,9 +29,10 @@ public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
 
     /**
      * @return L'elenco delle righe della TableView dei divisori del numero inserito nel TextField dall'utente.
+     * @throws IOException Se non riesce a scrivere correttamente su file.
      */
     @Override
-    protected List<RigaTabellaNumeriPrimi> call() {
+    protected List<RigaTabellaNumeriPrimi> call() throws IOException {
         Date dataInizio = new Date();
         modificaNumeroCercatoSeAnnullaContinua();
         BigInteger divisore = primoDivisore(numeroCercato, modificaDivisorePrimoSeAnnullaContinua());
@@ -47,6 +53,7 @@ public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
             dataInizio = new Date();
             divisore = primoDivisore(numeroCercato, divisore);
         }
+        scriviDivisoriSuFile();
         return listaRigaTabellaNumeriPrimi;
     }
 
@@ -93,5 +100,35 @@ public class TaskGeneraTabellaPrimi extends Task<List<RigaTabellaNumeriPrimi>> {
      */
     public void setDaStoppare(boolean daStoppare) {
         this.daStoppare = daStoppare;
+    }
+
+    /**
+     * @throws IOException Se non riesce a scrivere correttamente su file.
+     */
+    private void scriviDivisoriSuFile() throws IOException {
+        Path percorsoFile = Paths.get("src/main/resources", "tabellaNumeroDivisore.txt");
+        Set<BigInteger> numeriEsistenti = new HashSet<>();
+        if (Files.exists(percorsoFile)) {
+            List<String> righeEsistenti = Files.readAllLines(percorsoFile);
+            for (String riga : righeEsistenti) {
+                try {
+                    numeriEsistenti.add(new BigInteger(riga.trim()));
+                } catch (NumberFormatException e) {
+                    // Ignora le righe non numeriche (se ce ne sono)
+                }
+            }
+        }
+        for (RigaTabellaNumeriPrimi rigaTabellaNumeriPrimi : listaRigaTabellaNumeriPrimi) {
+            BigInteger divisore = new BigInteger(rigaTabellaNumeriPrimi.divisorePrimo());
+            numeriEsistenti.add(divisore);
+        }
+        List<BigInteger> numeriOrdinati = new ArrayList<>(numeriEsistenti);
+        Collections.sort(numeriOrdinati);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(percorsoFile.toFile()))) {
+            for (BigInteger numero : numeriOrdinati) {
+                writer.write(numero.toString());
+                writer.newLine();
+            }
+        }
     }
 }
